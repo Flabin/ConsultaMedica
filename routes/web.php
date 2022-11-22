@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\ConsultaController;
+use App\Http\Controllers\MedicoController;
+use App\Http\Controllers\PacienteController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +18,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home/welcome');
 });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('consulta', [ConsultaController::class, 'index'])->name('consulta.index');
+Route::get('consulta/{id}/edit', [ConsultaController::class, 'edit'])->name('consulta.edit');
+Route::get('consulta/create', [ConsultaController::class, 'create'])->name('consulta.create');
+
+Route::resource('paciente', PacienteController::class);
+
+Route::resource('medico', MedicoController::class);
